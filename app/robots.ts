@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://blackcomet.net/sitemap.xml",
+    sitemap: "https://www.blackcomet.net/sitemap.xml",
   };
 }
