@@ -2,6 +2,15 @@ import { Code, Users, Rocket, Cog, Linkedin, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { EmailForm } from "@/components/EmailForm";
+import * as motion from "framer-motion/client";
+import { NavigationLink } from "@/components/NavigationLink";
+
+const links = [
+  { id: "services", label: "Services" },
+  //{ id: "case-studies", label: "Case Studies" },
+  { id: "about", label: "About Us" },
+  { id: "contact", label: "Contact" },
+];
 
 export default function LandingPage() {
   return (
@@ -12,30 +21,33 @@ export default function LandingPage() {
           <span className="font-bold">BlackComet</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
-          >
-            Services
-          </Link>
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
-          >
-            Case Studies
-          </Link>
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
-          >
-            About Us
-          </Link>
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
-          >
-            Contact
-          </Link>
+          {links.map((x, index) => (
+            <motion.div
+              key={x.id}
+              initial={{
+                opacity: 0,
+                y: -20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                transition: {
+                  delay: index * 0.1,
+                  duration: 0.4,
+                },
+              }}
+            >
+              <NavigationLink navId={x.id}>
+                <Link
+                  scroll={false}
+                  href={`#${x.id}`}
+                  className="text-sm font-medium hover:underline underline-offset-4"
+                >
+                  {x.label}
+                </Link>
+              </NavigationLink>
+            </motion.div>
+          ))}
         </nav>
       </header>
       <main className="flex-1">
@@ -72,13 +84,16 @@ export default function LandingPage() {
                 alt="BlackComet team collaborating"
                 className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
                 height="550"
-                src="/undraw_progress.png"
+                src="/undraw_progress_black.png"
                 width="550"
               />
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 justify-items-center">
+        <section
+          id="services"
+          className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 justify-items-center"
+        >
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -121,12 +136,15 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 justify-items-center">
+        <section
+          id="about"
+          className="w-full py-12 md:py-24 lg:py-32 justify-items-center"
+        >
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  Meet Our BlackComet Innovators
+                  Meet Our Innovators
                 </h2>
                 <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
                   Our team of passionate tech enthusiasts brings fresh ideas and
@@ -140,13 +158,13 @@ export default function LandingPage() {
                   name: "Nordin van Dijk",
                   role: "Full Stack Developer",
                   bio: "A coding prodigy with a knack for creating elegant, efficient solutions. Nordin's passion for tech started at 12, and he's been pushing boundaries ever since.",
-                  image: "/undraw_developer.png",
+                  image: "/profile_nordin.jpeg",
                 },
                 {
                   name: "Jesper van Dijk",
                   role: "Full Stack Develoer",
                   bio: "With an eye for detail and a user-first mindset, Jesper crafts the most solid applications.",
-                  image: "/undraw_developer.png",
+                  image: "/profile_jesper.jpeg",
                 },
               ].map((member, index) => (
                 <div
@@ -194,7 +212,7 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 justify-items-center">
+        {/* <section className="w-full py-12 md:py-24 lg:py-32 justify-items-center">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -235,25 +253,26 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 justify-items-center">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  Ready to Innovate with BlackComet?
-                </h2>
-                <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                  Let&apos;s discuss how our young, dynamic team can bring your
-                  ideas to life with cutting-edge technology.
-                </p>
-              </div>
-              <div className="w-full max-w-sm space-y-2">
-                <EmailForm />
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  We&apos;ll get back to you within 24 hours to schedule a chat.
-                </p>
-              </div>
+        </section> */}
+        <section
+          id="contact"
+          className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 justify-items-center"
+        >
+          <div className="container px-4 md:px-6 justify-items-center flex flex-col gap-4 items-center ">
+            <div className="flex flex-col items-center justify-center space-y-2 text-center">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                Ready to innovate with BlackComet?
+              </h2>
+              <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                Let&apos;s discuss how our dynamic team can bring your ideas to
+                life with cutting-edge technology.
+              </p>
+            </div>
+            <div className="w-full max-w-sm">
+              <EmailForm />
+              <p className="text-xs text-center text-gray-500 dark:text-gray-400 my-2">
+                We&apos;ll get back to you within 24 hours to schedule a chat.
+              </p>
             </div>
           </div>
         </section>
