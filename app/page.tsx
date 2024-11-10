@@ -170,6 +170,8 @@ export default function LandingPage() {
                 <div
                   key={index}
                   className="flex flex-col items-center space-y-4 max-w-sm"
+                  vocab="https://schema.org"
+                  typeof="Person"
                 >
                   <Image
                     alt={member.name}
@@ -183,7 +185,9 @@ export default function LandingPage() {
                     width="150"
                   />
                   <div className="space-y-2 text-center">
-                    <h3 className="text-xl font-bold">{member.name}</h3>
+                    <h3 className="text-xl font-bold" property="name">
+                      {member.name}
+                    </h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       {member.role}
                     </p>

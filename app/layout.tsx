@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { Organization, WithContext } from "schema-dts";
+import Head from "next/head";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -20,6 +22,20 @@ export const metadata: Metadata = {
     "BlackComet is an innovative software company, driven by a passion for cutting-edge technology and creative problem-solving. Focused on developing high-quality products and providing bespoke outsourcing services",
 };
 
+const organizationSchema: WithContext<Organization> = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "BlackComet",
+  email: "support@blackcomet.net",
+  url: "https://www.blackcomet.net",
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "NL",
+    addressRegion: "Zuid-Holland",
+    addressLocality: "Rotterdam",
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,6 +43,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+      </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
