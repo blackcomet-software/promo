@@ -26,14 +26,33 @@ const organizationSchema: WithContext<Organization> = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "BlackComet",
+  alternateName: "Black Comet",
   email: "support@blackcomet.net",
   url: "https://www.blackcomet.net",
+  foundingDate: "2024",
+  founder: [
+    {
+      "@type": "Person",
+      name: "Nordin van Dijk",
+    },
+    {
+      "@type": "Person",
+      name: "Jesper van Dijk",
+    },
+  ],
   address: {
     "@type": "PostalAddress",
     addressCountry: "NL",
     addressRegion: "Zuid-Holland",
     addressLocality: "Rotterdam",
   },
+  keywords: [
+    "BlackComet",
+    "Black Comet",
+    "software company",
+    "SaaS",
+    "outsourcing",
+  ],
 };
 
 export default function RootLayout({
