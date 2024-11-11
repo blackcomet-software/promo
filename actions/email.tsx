@@ -7,19 +7,26 @@ import { render } from "@react-email/components";
 export async function getInTouch(email: string) {
   const emailHtml = await render(<GetInTouchEmail />);
 
-  resend.emails.send({
+  const sendMailToSelf = resend.emails.send({
     from: process.env.MAIL_ADDRESS as string,
     to: process.env.MAIL_ADDRESS as string,
     subject: "Someone wants to get in touch!",
     text: `Reply to this email address: ${email}`,
   });
 
-  resend.emails.send({
+  const sendMailToUser = resend.emails.send({
     from: process.env.MAIL_ADDRESS as string,
     to: email,
     subject: "Hey there! We’re excited to connect with you!",
     html: emailHtml,
   });
 
-  console.log("Send onboarding emails!");
+  const result = await Promise.allSettled([sendMailToSelf, sendMailToUser]);
+
+  if (result.filter((x) => x.status == "fulfilled").length == 2) {
+    console.log("Onboarding emails send succesfully");
+    return;
+  }
+
+  console.error("Something went wrong while sending the onboarding emails");
 }
