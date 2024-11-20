@@ -161,12 +161,16 @@ export default function LandingPage() {
                   role: "Full Stack Developer",
                   bio: "A coding prodigy with a knack for creating elegant, efficient solutions. Nordin's passion for tech started at 12, and he's been pushing boundaries ever since.",
                   image: "/profile_nordin.jpeg",
+                  github: "https://github.com/nordinvandijk",
+                  linkedin: "https://www.linkedin.com/in/nordinvandijk/"
                 },
                 {
                   name: "Jesper van Dijk",
                   role: "Full Stack Develoer",
                   bio: "With an eye for detail and a user-first mindset, Jesper crafts the most solid applications.",
                   image: "/profile_jesper.jpeg",
+                  github: "https://github.com/jespervandijk",
+                  linkedin: "https://www.linkedin.com/in/jesper-van-dijk-45b989193/"
                 },
               ].map((member, index) => (
                 <div
@@ -199,14 +203,14 @@ export default function LandingPage() {
                   </div>
                   <div className="flex space-x-4">
                     <Link
-                      href="#"
+                      href={member.linkedin}
                       className="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                     >
                       <Linkedin className="h-5 w-5" />
                       <span className="sr-only">LinkedIn</span>
                     </Link>
                     <Link
-                      href="#"
+                      href={member.github}
                       className="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                     >
                       <Github className="h-5 w-5" />
