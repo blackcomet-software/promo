@@ -16,43 +16,45 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen font-poppins">
       <header className="px-4 lg:px-6 h-14 flex items-center">
-        <Link className="flex items-center justify-center" href="#">
-          <Code className="h-6 w-6 mr-2" />
-          <span className="font-bold">BlackComet</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          {links.map((x, index) => (
-            <motion.div
-              key={x.id}
-              initial={{
-                opacity: 0,
-                y: -20,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: index * 0.1,
-                  duration: 0.4,
-                },
-              }}
-            >
-              <NavigationLink navId={x.id}>
-                <Link
-                  scroll={false}
-                  href={`#${x.id}`}
-                  className="text-sm font-medium hover:underline underline-offset-4"
-                >
-                  {x.label}
-                </Link>
-              </NavigationLink>
-            </motion.div>
-          ))}
-        </nav>
+        <div className="container mx-auto flex items-center">
+          <Link className="flex items-center justify-center" href="#">
+            <Code className="h-6 w-6 mr-2" />
+            <span className="font-bold">BlackComet</span>
+          </Link>
+          <nav className="ml-auto flex gap-4 sm:gap-6">
+            {links.map((x, index) => (
+              <motion.div
+                key={x.id}
+                initial={{
+                  opacity: 0,
+                  y: -20,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    delay: index * 0.1,
+                    duration: 0.4,
+                  },
+                }}
+              >
+                <NavigationLink navId={x.id}>
+                  <Link
+                    scroll={false}
+                    href={`#${x.id}`}
+                    className="text-sm font-medium hover:underline underline-offset-4"
+                  >
+                    {x.label}
+                  </Link>
+                </NavigationLink>
+              </motion.div>
+            ))}
+          </nav>
+        </div>
       </header>
-      <main className="flex-1">
+      <main className="flex-1 items-center">
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 justify-items-center">
-          <div className="container px-4 md:px-6">
+          <div className="container mx-auto px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
@@ -94,7 +96,7 @@ export default function LandingPage() {
           id="services"
           className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 justify-items-center"
         >
-          <div className="container px-4 md:px-6">
+          <div className="container mx-auto px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
@@ -140,7 +142,7 @@ export default function LandingPage() {
           id="about"
           className="w-full py-12 md:py-24 lg:py-32 justify-items-center"
         >
-          <div className="container px-4 md:px-6">
+          <div className="container mx-auto px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
@@ -262,7 +264,7 @@ export default function LandingPage() {
           id="contact"
           className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 justify-items-center"
         >
-          <div className="container px-4 md:px-6 justify-items-center flex flex-col gap-4 items-center ">
+          <div className="container mx-auto px-4 md:px-6 justify-items-center flex flex-col gap-4 items-center ">
             <div className="flex flex-col items-center justify-center space-y-2 text-center">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                 Ready to innovate with BlackComet?
