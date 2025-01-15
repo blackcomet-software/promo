@@ -4,6 +4,7 @@ import Link from "next/link";
 import { EmailForm } from "@/components/EmailForm";
 import * as motion from "framer-motion/client";
 import { NavigationLink } from "@/components/NavigationLink";
+import { Button } from "@/components/ui/button";
 
 const links = [
   { id: "services", label: "Services" },
@@ -15,13 +16,13 @@ const links = [
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen font-poppins">
-      <header className="px-4 lg:px-6 h-14 flex items-center">
+      <header className="sticky top-0 bg-background px-4 lg:px-6 h-14 flex items-center">
         <div className="container mx-auto flex items-center">
           <Link className="flex items-center justify-center" href="#">
             <Code className="h-6 w-6 mr-2" />
             <span className="font-bold">BlackComet</span>
           </Link>
-          <nav className="ml-auto flex gap-4 sm:gap-6">
+          <nav className="ml-auto flex gap-4 items-center sm:gap-6">
             {links.map((x, index) => (
               <motion.div
                 key={x.id}
@@ -49,6 +50,9 @@ export default function LandingPage() {
                 </NavigationLink>
               </motion.div>
             ))}
+            <Link href="/dashboard">
+              <Button>Dashboard</Button>
+            </Link>
           </nav>
         </div>
       </header>
