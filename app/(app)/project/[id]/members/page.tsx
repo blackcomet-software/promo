@@ -2,7 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { DataTable } from "./_components/data-table";
 import { columns } from "./_components/columns";
 
-export default async function Members({ params }: { params: { id: string } }) {
+export default async function Members(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params
   const supabase = await createClient();
   const members = await supabase
     .from("project_member")
