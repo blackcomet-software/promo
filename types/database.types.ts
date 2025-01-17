@@ -12,17 +12,17 @@ export type Database = {
       project: {
         Row: {
           created_at: string
-          id: number
+          id: string
           name: string
         }
         Insert: {
           created_at?: string
-          id?: number
+          id?: string
           name: string
         }
         Update: {
           created_at?: string
-          id?: number
+          id?: string
           name?: string
         }
         Relationships: []
@@ -30,17 +30,17 @@ export type Database = {
       project_member: {
         Row: {
           id: string
-          project_id: number
+          project_id: string
           user_id: string | null
         }
         Insert: {
           id?: string
-          project_id: number
+          project_id: string
           user_id?: string | null
         }
         Update: {
           id?: string
-          project_id?: number
+          project_id?: string
           user_id?: string | null
         }
         Relationships: [
@@ -60,18 +60,107 @@ export type Database = {
           },
         ]
       }
-      user: {
+      project_member_roles: {
         Row: {
           created_at: string
           id: string
+          project_member_id: string
+          project_role_id: string
         }
         Insert: {
           created_at?: string
-          id: string
+          id?: string
+          project_member_id: string
+          project_role_id: string
         }
         Update: {
           created_at?: string
           id?: string
+          project_member_id?: string
+          project_role_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_member_roles_project_member_id_fkey"
+            columns: ["project_member_id"]
+            isOneToOne: false
+            referencedRelation: "project_member"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_member_roles_project_role_id_fkey"
+            columns: ["project_role_id"]
+            isOneToOne: false
+            referencedRelation: "project_role"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      project_role: {
+        Row: {
+          id: string
+          title: string
+        }
+        Insert: {
+          id?: string
+          title: string
+        }
+        Update: {
+          id?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      task: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          project_id: string
+          status: Database["public"]["Enums"]["task_status"]
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          project_id: string
+          status?: Database["public"]["Enums"]["task_status"]
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          project_id?: string
+          status?: Database["public"]["Enums"]["task_status"]
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "task_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "project"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
         }
         Relationships: []
       }
@@ -83,7 +172,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      task_status: "todo" | "in_progress" | "done"
     }
     CompositeTypes: {
       [_ in never]: never

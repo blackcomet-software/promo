@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Organization, WithContext } from "schema-dts";
 import Script from "next/script";
+import { Providers } from "./providers";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -55,6 +56,7 @@ const organizationSchema: WithContext<Organization> = {
   ],
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -72,8 +74,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Providers>
         <main>{children}</main>
         <Toaster />
+        </Providers>
       </body>
     </html>
   );

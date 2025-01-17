@@ -15,7 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { ChevronDown, CirclePlus, LayoutDashboard, Users } from "lucide-react";
+import { ChevronDown, CirclePlus, Kanban, LayoutDashboard, Users } from "lucide-react";
 import { NavUser } from "./nav-user";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
@@ -84,6 +84,14 @@ export async function AppSidebar(props: { selectedProjectId: string }) {
                 <Link href={`members`}>
                   <Users />
                   <span>Members</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href={`board`}>
+                  <Kanban />
+                  <span>Board</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

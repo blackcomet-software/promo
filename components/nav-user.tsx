@@ -29,7 +29,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { createClient } from "@/lib/supabase/client"
 import { signOut } from "@/lib/supabase/sign-out"
 
 export function NavUser({
@@ -45,7 +44,6 @@ export function NavUser({
 }) {
 
   const { isMobile } = useSidebar()
-  const supabase = createClient();
 
   return (
     <SidebarMenu>
