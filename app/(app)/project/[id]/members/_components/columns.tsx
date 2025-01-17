@@ -16,6 +16,10 @@ export const columns: ColumnDef<ProjectMemberEntry>[] = [
   {
     accessorKey: "roles",
     header: "Roles",
-    cell: ({ cell }) => <div className="flex flex-row gap-2">{cell.getValue().map(x => <Badge key={x}>{x}</Badge>)}</div>
-  },
+    cell: ({ row }) => (
+      <div className="flex flex-row gap-2">
+        {row.original.roles.map(x => <Badge key={x}>{x}</Badge>)}
+      </div>
+    )
+  }
 ];
