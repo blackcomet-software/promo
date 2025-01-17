@@ -2,8 +2,8 @@ import { KanbanBoard } from "@/components/kanban-board";
 import { createClient } from "@/lib/supabase/server";
 
 
-export default async function ProjectBoard({ params }: { params: { id: string } }) {
-
+export default async function ProjectBoard(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params
   const supabase = await createClient();
   const items = await supabase.from("task").select().eq("project_id", params.id)
 
