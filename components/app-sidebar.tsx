@@ -26,7 +26,7 @@ export async function AppSidebar(props: { selectedProjectId: string }) {
   const userData = await supabase
     .from("user")
     .select()
-    .eq("id", user.data.user?.id)
+    .eq("id", user.data.user!.id)
     .single();
 
   const projects = await supabase.from("project_member").select(`
@@ -102,9 +102,9 @@ export async function AppSidebar(props: { selectedProjectId: string }) {
       <SidebarFooter>
         <NavUser
           user={{
-            name: userData.data.name,
-            avatar: user.data.user?.user_metadata,
-            email: user.data.user?.email,
+            name: userData.data?.name ?? "Unknown",
+            avatar: "",
+            email: user.data.user?.email ?? "",
           }}
         />
       </SidebarFooter>

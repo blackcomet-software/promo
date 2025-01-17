@@ -27,11 +27,16 @@ export function LoginForm({
         <CardContent>
           <form action={async (formData) => {
             "use server";
-            const email = formData.get("email");
-            const password = formData.get("password")
+            let email = formData.get("email");
+            if (email == null) throw new Error("Something went wrong");
+            email = email.toString()
+
+            let password = formData.get("password")
+            if (password == null) throw new Error("Something went wrong");
+            password = password.toString()
+
             const supabase = await createClient();
-            await supabase.auth.signInWithPassword({ email: email?.toString(), password: password?.toString() })
-           
+            await supabase.auth.signInWithPassword({ email: email, password: password })
           }}>
             <div className="grid gap-6">
               <div className="flex flex-col gap-4">

@@ -6,7 +6,10 @@ import {
   ReactFlow,
   Background,
   Controls,
+  Node,
   applyNodeChanges,
+  OnNodesChange,
+  BackgroundVariant,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { useCallback, useState } from "react";
@@ -18,9 +21,9 @@ const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 const nodeTypes = { website: ModuleNode };
 
 export default function Dashboard() {
-  const [nodes, setNodes] = useState(initialNodes);
-  const onNodesChange = useCallback(
-    (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
+  const [nodes, setNodes] = useState<Node[]>(initialNodes);
+  const onNodesChange: OnNodesChange = useCallback(
+    (changes) => setNodes((prev) => applyNodeChanges(changes, prev)),
     [],
   );
 
@@ -42,7 +45,7 @@ export default function Dashboard() {
         fitView
       >
         <Controls />
-        <Background variant="dots" gap={12} size={1} />
+        <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
       </ReactFlow>
     </div>
   );
