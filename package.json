@@ -31,11 +31,14 @@
     "@xyflow/react": "^12.3.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.38.4",
     "framer-motion": "^11.11.11",
     "lucide-react": "^0.456.0",
     "next": "15.0.3",
     "next-themes": "^0.4.3",
     "nodemailer": "^6.9.16",
+    "postgres": "^3.4.5",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "react-hook-form": "^7.53.2",
@@ -51,10 +54,12 @@
     "@types/nodemailer": "^6.4.16",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "drizzle-kit": "^0.30.2",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   }
 }

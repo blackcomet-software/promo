@@ -3,10 +3,14 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
 } from "@/components/ui/sidebar";
 import {
   DropdownMenu,
@@ -15,7 +19,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { ChevronDown, CirclePlus, Kanban, LayoutDashboard, Users } from "lucide-react";
+import { ChartNetwork, ChevronDown, CirclePlus, Columns3, FileText, Kanban, LayoutDashboard, Map, Users } from "lucide-react";
 import { NavUser } from "./nav-user";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
@@ -81,6 +85,52 @@ export async function AppSidebar(props: { selectedProjectId: string }) {
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
+
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                Application
+                </SidebarMenuButton>
+                </SidebarMenuItem> 
+              <SidebarMenuSub>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link href={`dashboard`}>
+                      <ChartNetwork />
+                      <span>Infrastructure</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenuSub>
+            </SidebarMenu>
+
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton>Planning</SidebarMenuButton>
+              </SidebarMenuItem>
+
+              <SidebarMenuSub>
+                   <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href={`roadmap`}>
+                  <Map />
+                  <span>Roadmap</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href={`board`}>
+                  <Columns3 />
+                  <span>Board</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+              </SidebarMenuSub>
+            </SidebarMenu>
+
+
+           
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href={`members`}>
@@ -89,16 +139,17 @@ export async function AppSidebar(props: { selectedProjectId: string }) {
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
+        
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <Link href={`board`}>
-                  <Kanban />
-                  <span>Board</span>
+                <Link href={`documentation`}>
+                  <FileText />
+                  <span>Documentation</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
-        </SidebarGroup>
+          </SidebarGroup>
       </SidebarContent>
 
       <SidebarFooter>

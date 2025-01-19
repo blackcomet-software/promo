@@ -18,7 +18,7 @@ export const columns: ColumnDef<ProjectMemberEntry>[] = [
     header: "Roles",
     cell: ({ row }) => (
       <div className="flex flex-row gap-2">
-        {row.original.roles.map(x => <Badge key={x}>{x}</Badge>)}
+        {row.original.roles.map(x => <Badge className="bg-blue-800 hover:bg-blue-800" key={x}>{x}</Badge>)}
       </div>
     )
   }

@@ -9,6 +9,68 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      invite_to_project: {
+        Row: {
+          created_at: string
+          id: string
+          sender_project_member_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          sender_project_member_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          sender_project_member_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invite_to_project_sender_project_member_id_fkey"
+            columns: ["sender_project_member_id"]
+            isOneToOne: false
+            referencedRelation: "project_member"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notification: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          target_user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          target_user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          target_user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notification_target_user_id_fkey"
+            columns: ["target_user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notification_target_user_id_fkey"
+            columns: ["target_user_id"]
+            isOneToOne: false
+            referencedRelation: "user_with_auth"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       project: {
         Row: {
           created_at: string
@@ -56,6 +118,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_member_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user_with_auth"
             referencedColumns: ["id"]
           },
         ]
@@ -166,10 +235,24 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      user_with_auth: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          id: string | null
+          name: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
-      [_ in never]: never
+      invite_user_to_project: {
+        Args: {
+          _email: string
+          _project_id: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       task_status: "todo" | "in_progress" | "done"

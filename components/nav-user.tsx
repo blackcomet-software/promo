@@ -34,6 +34,7 @@ import { createClient } from "@/lib/supabase/client"
 import { useEffect } from "react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import Link from "next/link"
+import { toast } from "sonner"
 
 export function NavUser({
   user,
@@ -72,6 +73,7 @@ export function NavUser({
         }, 
         (payload) => {
           queryClient.invalidateQueries({ queryKey: ["notification_amount"]})
+          toast(payload.new.message)
           console.log(payload)
         }
       )
