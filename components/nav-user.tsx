@@ -30,13 +30,17 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { signOut } from "@/lib/supabase/sign-out"
+import { createClient } from "@/lib/supabase/client"
+import { useEffect } from "react"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import Link from "next/link"
 
 export function NavUser({
   user,
 
 }: {
   user: {
-
+    id: string,
     name: string
     email: string
     avatar: string
@@ -44,6 +48,35 @@ export function NavUser({
 }) {
 
   const { isMobile } = useSidebar()
+  const queryNotificationAmount = useQuery({
+    queryKey: ["notification_amount"],
+    queryFn: async () => {
+      const supabase = createClient();
+      const res = await supabase.from("notification").select("*", {count: "exact"}).eq("target_user_id", user.id)
+      console.log(res)
+      return res.count
+    }
+  })
+
+  const queryClient = useQueryClient()
+  const supabase = createClient();
+  useEffect(() => {
+    supabase
+      .channel("schema-db-changes")
+      .on(
+        "postgres_changes", 
+        {
+          event: 'INSERT', 
+          schema: "public", 
+          table: "notification"
+        }, 
+        (payload) => {
+          queryClient.invalidateQueries({ queryKey: ["notification_amount"]})
+          console.log(payload)
+        }
+      )
+    .subscribe()
+  }, [supabase, queryClient])
 
   return (
     <SidebarMenu>
@@ -97,10 +130,13 @@ export function NavUser({
                 <CreditCard />
                 Billing
               </DropdownMenuItem>
+              <Link href="/notifications">
               <DropdownMenuItem>
                 <Bell />
                 Notifications
+                <div className="ml-auto bg-red-500 size-5 rounded-full flex items-center justify-center"><p className="text-white">{queryNotificationAmount.data}</p></div> 
               </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={signOut}>

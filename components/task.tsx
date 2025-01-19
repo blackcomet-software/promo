@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 
@@ -22,10 +22,18 @@ export function Task(props: { task: Task }) {
       }}
       {...attributes}
       {...listeners}
+      onClick={(e) => {
+        e.stopPropagation(); // Ensure the click doesn’t interfere with drag
+        console.log("open");
+      }}
     >
       <CardHeader>
         <CardTitle className={isDragging ? "text-muted" : ""}>{props.task.title}</CardTitle>
       </CardHeader>
+
+      <CardFooter>
+        <p>{props.task.id.split("-")[0]}</p>
+      </CardFooter>
     </Card>
   )
 }

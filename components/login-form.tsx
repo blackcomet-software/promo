@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { createClient } from "@/lib/supabase/server"
+import { redirect } from "next/navigation"
 
 export function LoginForm({
   className,
@@ -36,7 +37,16 @@ export function LoginForm({
             password = password.toString()
 
             const supabase = await createClient();
-            await supabase.auth.signInWithPassword({ email: email, password: password })
+            const res = await supabase.auth.signInWithPassword({ email: email, password: password })
+
+            if (res.data.user) {
+              const projectsResponse = await supabase.from("project_member").select("project_id").eq("user_id", res.data.user.id)
+              if (projectsResponse.data == null || projectsResponse.data.length == 0) {
+                return redirect("/new-project")
+              }
+              const projects = projectsResponse.data?.map(x => x.project_id)
+              redirect(`/project/${projects[0]}`)
+            }
           }}>
             <div className="grid gap-6">
               <div className="flex flex-col gap-4">

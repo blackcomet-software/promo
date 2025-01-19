@@ -44,7 +44,7 @@ export async function AppSidebar(props: { selectedProjectId: string }) {
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton>
+                <SidebarMenuButton className="font-bold">
                   {selectedProject?.project.name}
                   <ChevronDown className="ml-auto" />
                 </SidebarMenuButton>
@@ -58,10 +58,12 @@ export async function AppSidebar(props: { selectedProjectId: string }) {
                   </Link>
                 ))}
                 <DropdownMenuSeparator />
+                <Link href="/new-project">
                 <DropdownMenuItem>
                   <CirclePlus />
                   New Project
                 </DropdownMenuItem>
+                </Link>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>
@@ -102,6 +104,7 @@ export async function AppSidebar(props: { selectedProjectId: string }) {
       <SidebarFooter>
         <NavUser
           user={{
+            id: userData.data!.id,
             name: userData.data?.name ?? "Unknown",
             avatar: "",
             email: user.data.user?.email ?? "",
