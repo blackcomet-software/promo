@@ -1,4 +1,4 @@
-import { pgTable, foreignKey, pgPolicy, uuid, timestamp, text, pgView, varchar, pgEnum } from "drizzle-orm/pg-core"
+import { pgTable, foreignKey, pgPolicy, uuid, timestamp, text, pgEnum } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 
 export const taskStatus = pgEnum("task_status", ['todo', 'in_progress', 'done'])
@@ -119,8 +119,3 @@ export const notification = pgTable("notification", {
 	pgPolicy("Enable insert for users based on user_id", { as: "permissive", for: "insert", to: ["public"], withCheck: sql`(( SELECT auth.uid() AS uid) = target_user_id)`  }),
 	pgPolicy("Enable users to view their own data only", { as: "permissive", for: "select", to: ["authenticated"] }),
 ]);
-export const userWithAuth = pgView("user_with_auth", {	id: uuid(),
-	name: text(),
-	email: varchar({ length: 255 }),
-	createdAt: timestamp("created_at", { withTimezone: true, mode: 'string' }),
-}).with({"securityInvoker":"on"}).as(sql`SELECT u.id, u.name, a.email, a.created_at FROM "user" u JOIN auth.users a ON u.id = a.id`);

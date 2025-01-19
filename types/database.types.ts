@@ -14,16 +14,19 @@ export type Database = {
           created_at: string
           id: string
           sender_project_member_id: string
+          target_email: string
         }
         Insert: {
           created_at?: string
           id?: string
           sender_project_member_id: string
+          target_email: string
         }
         Update: {
           created_at?: string
           id?: string
           sender_project_member_id?: string
+          target_email?: string
         }
         Relationships: [
           {
@@ -60,13 +63,6 @@ export type Database = {
             columns: ["target_user_id"]
             isOneToOne: false
             referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "notification_target_user_id_fkey"
-            columns: ["target_user_id"]
-            isOneToOne: false
-            referencedRelation: "user_with_auth"
             referencedColumns: ["id"]
           },
         ]
@@ -118,13 +114,6 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "project_member_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_with_auth"
             referencedColumns: ["id"]
           },
         ]
@@ -235,24 +224,10 @@ export type Database = {
       }
     }
     Views: {
-      user_with_auth: {
-        Row: {
-          created_at: string | null
-          email: string | null
-          id: string | null
-          name: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
-      invite_user_to_project: {
-        Args: {
-          _email: string
-          _project_id: string
-        }
-        Returns: undefined
-      }
+      [_ in never]: never
     }
     Enums: {
       task_status: "todo" | "in_progress" | "done"
