@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import { pgTable, foreignKey, pgPolicy, uuid, timestamp, text, pgEnum } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 
