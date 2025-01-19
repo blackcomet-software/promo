@@ -3,9 +3,6 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
-  SidebarGroupAction,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -19,7 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { ChartNetwork, ChevronDown, CirclePlus, Columns3, FileText, Kanban, LayoutDashboard, Map, Users } from "lucide-react";
+import { ChartNetwork, ChevronDown, CirclePlus, Columns3, FileText, LayoutDashboard, Map, Users } from "lucide-react";
 import { NavUser } from "./nav-user";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
