@@ -10,7 +10,7 @@ export default async function Notfications() {
       <h1 className="font-black text-4xl tracking-tight">Notifications</h1>
       <div>
         <Input placeholder="Search" />
-        {response.data.map(x => <p key={x.id}>{x.message}</p>)}
+        {response.data!.map(x => <p key={x.id}>{x.message}</p>)}
       </div>
     </div>
   )
