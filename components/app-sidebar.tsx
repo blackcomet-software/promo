@@ -32,7 +32,7 @@ export async function AppSidebar(props: { selectedProjectId: string }) {
 
   const projects = await supabase.from("project_member").select(`
   project ( id, name )
-`);
+`).eq("user_id", userData.data!.id);
 
   const selectedProject = projects.data?.find(
     (x) => x.project.id === props.selectedProjectId,
