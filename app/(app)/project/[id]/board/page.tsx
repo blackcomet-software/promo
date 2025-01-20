@@ -10,7 +10,7 @@ export default async function ProjectBoard(props: { params: Promise<{ id: string
 
   return (
     <div className="container mx-auto">
-      <h1 className="text-4xl my-6 font-bold tracking-tight">Project Board</h1>
+      <h1 className="text-4xl my-6 font-black tracking-tight">Project Board</h1>
       <KanbanBoard items={items} />
     </div>
   )
