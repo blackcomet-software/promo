@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
 import { pgTable, pgSchema, varchar, uuid, text, timestamp, uniqueIndex, index, unique, check, jsonb, boolean, smallint, foreignKey, bigserial, pgPolicy, inet, json, pgEnum } from "drizzle-orm/pg-core"

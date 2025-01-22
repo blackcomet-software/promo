@@ -1,52 +1,12 @@
-"use client";
-
-import { ModuleNode } from "@/components/nodes/module-node";
-import { Input } from "@/components/ui/input";
-import {
-  ReactFlow,
-  Background,
-  Controls,
-  Node,
-  applyNodeChanges,
-  OnNodesChange,
-  BackgroundVariant,
-} from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import { useCallback, useState } from "react";
+import { GraphEditor } from "./_components/graph-editor";
+import { createClient } from "@/lib/supabase/server";
 
-const initialNodes = [
-  { id: "test", position: { x: 0, y: 0 }, data: {}, type: "website" },
-];
-const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
-const nodeTypes = { website: ModuleNode };
+const initialEdges = [{ id: "test", source: "038b8397-c0d2-4145-af1a-08b3b2549669", target: "1b2799fc-8033-48ca-8a2a-b4c2fc4a84bf", type: "straight" }];
 
-export default function Dashboard() {
-  const [nodes, setNodes] = useState<Node[]>(initialNodes);
-  const onNodesChange: OnNodesChange = useCallback(
-    (changes) => setNodes((prev) => applyNodeChanges(changes, prev)),
-    [],
-  );
-
-  return (
-    <div className="flex-1 w-full h-full relative">
-
-
-      <Input
-        placeholder="Add a module"
-        className="absolute bg-background z-50 top-10 left-1/2 -translate-x-1/2 mx-auto max-w-md"
-      />
-
-
-      <ReactFlow
-        nodes={nodes}
-        nodeTypes={nodeTypes}
-        onNodesChange={onNodesChange}
-        edges={initialEdges}
-        fitView
-      >
-        <Controls />
-        <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
-      </ReactFlow>
-    </div>
-  );
+export default async function Dashboard() {
+  const supabase = await createClient();
+  const response = await supabase.from("node").select()
+  const initialNodes = response.data!.map(node => ({id: node.id, type: node.type, position: {x: node.x_coord ?? 0, y: node.y_coord ?? 0}, data: {}}))
+  return <GraphEditor initialNodes={initialNodes} initialEdges={initialEdges} /> 
 }

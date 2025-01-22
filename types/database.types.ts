@@ -9,6 +9,42 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      edge: {
+        Row: {
+          created_at: string
+          from: string
+          id: string
+          to: string
+        }
+        Insert: {
+          created_at?: string
+          from: string
+          id?: string
+          to: string
+        }
+        Update: {
+          created_at?: string
+          from?: string
+          id?: string
+          to?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "edge_from_fkey"
+            columns: ["from"]
+            isOneToOne: false
+            referencedRelation: "node"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "edge_to_fkey"
+            columns: ["to"]
+            isOneToOne: false
+            referencedRelation: "node"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       invite_to_project: {
         Row: {
           created_at: string
@@ -37,6 +73,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      module_website: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          url: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          url?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          url?: string | null
+        }
+        Relationships: []
+      }
+      node: {
+        Row: {
+          created_at: string
+          id: string
+          type: string
+          x_coord: number | null
+          y_coord: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          type: string
+          x_coord?: number | null
+          y_coord?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          type?: string
+          x_coord?: number | null
+          y_coord?: number | null
+        }
+        Relationships: []
       }
       notification: {
         Row: {
@@ -227,7 +308,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      my_project_ids: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          project_id: string
+        }[]
+      }
     }
     Enums: {
       task_status: "todo" | "in_progress" | "done"
