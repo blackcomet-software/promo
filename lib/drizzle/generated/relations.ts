@@ -1,5 +1,37 @@
 import { relations } from "drizzle-orm/relations";
-import { sessionsInAuth, refreshTokensInAuth, project, task, projectMember, inviteToProject, usersInAuth, user, projectMemberRoles, projectRole, notification, mfaFactorsInAuth, mfaChallengesInAuth, identitiesInAuth, ssoProvidersInAuth, ssoDomainsInAuth, mfaAmrClaimsInAuth, samlProvidersInAuth, flowStateInAuth, samlRelayStatesInAuth, oneTimeTokensInAuth } from "./schema";
+import { project, node, edge, sessionsInAuth, refreshTokensInAuth, task, projectMember, inviteToProject, usersInAuth, user, projectMemberRoles, projectRole, notification, mfaFactorsInAuth, mfaChallengesInAuth, identitiesInAuth, ssoProvidersInAuth, ssoDomainsInAuth, mfaAmrClaimsInAuth, samlProvidersInAuth, flowStateInAuth, samlRelayStatesInAuth, oneTimeTokensInAuth } from "./schema";
+
+export const nodeRelations = relations(node, ({one, many}) => ({
+	project: one(project, {
+		fields: [node.projectId],
+		references: [project.id]
+	}),
+	edges_from: many(edge, {
+		relationName: "edge_from_node_id"
+	}),
+	edges_to: many(edge, {
+		relationName: "edge_to_node_id"
+	}),
+}));
+
+export const projectRelations = relations(project, ({many}) => ({
+	nodes: many(node),
+	tasks: many(task),
+	projectMembers: many(projectMember),
+}));
+
+export const edgeRelations = relations(edge, ({one}) => ({
+	node_from: one(node, {
+		fields: [edge.from],
+		references: [node.id],
+		relationName: "edge_from_node_id"
+	}),
+	node_to: one(node, {
+		fields: [edge.to],
+		references: [node.id],
+		relationName: "edge_to_node_id"
+	}),
+}));
 
 export const refreshTokensInAuthRelations = relations(refreshTokensInAuth, ({one}) => ({
 	sessionsInAuth: one(sessionsInAuth, {
@@ -22,11 +54,6 @@ export const taskRelations = relations(task, ({one}) => ({
 		fields: [task.projectId],
 		references: [project.id]
 	}),
-}));
-
-export const projectRelations = relations(project, ({many}) => ({
-	tasks: many(task),
-	projectMembers: many(projectMember),
 }));
 
 export const inviteToProjectRelations = relations(inviteToProject, ({one}) => ({
